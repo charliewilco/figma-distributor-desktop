@@ -1,12 +1,12 @@
 {
-	name: 'Layer Distributor',
-	version: '1.0.0',
-	description: 'test',
-	author: 'Jackie Chui',
-	website: 'test',
-	js: [
-	'https://rawgit.com/jachui/figma-distributor-desktop/master/dist/js/chunk-vendors.b4c3e5e5.js',
-	'https://rawgit.com/jachui/figma-distributor-desktop/master/dist/js/app.e670c3e2.js'
-	],
-	css: ['https://rawgit.com/jachui/figma-distributor-desktop/master/dist/css/app.5050bb7a.css']
+  "name": "Layer Distributor",
+  "version": "1.0.0",
+  "description": "test",
+  "author": "Jackie Chui",
+  "website": "test",
+  "js": [
+    "https://rawgit.com/jachui/figma-distributor-desktop/master/dist/js/chunk-vendors.b4c3e5e5.js",
+    "https://rawgit.com/jachui/figma-distributor-desktop/master/dist/js/app.e670c3e2.js"
+  ],
+  "css": ["https://rawgit.com/jachui/figma-distributor-desktop/master/dist/css/app.5050bb7a.css"]
 }
