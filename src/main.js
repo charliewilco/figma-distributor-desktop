@@ -52,7 +52,7 @@ function inject () {
   distributorButton.style.fontFamily = 'FigmaIcons'
   alignButton.parentNode.insertBefore(distributorButton, alignButton.nextSibling)
   var vueInstance = window.vue.$children[0]
-  distributorButton.addEventListener('click', function(e) {
+  distributorButton.addEventListener('click', function() {
     if (!document.querySelector('[data-tooltip="distribute-horizontal-spacing"]').className.includes('iconButtonDisabled')) vueInstance.toggleModal()
   }, false)
   document.querySelector('.focus-target').onkeydown = function (e) {

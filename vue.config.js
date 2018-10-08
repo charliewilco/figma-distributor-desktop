@@ -1,4 +1,5 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+
 module.exports = {
   filenameHashing: false,
   productionSourceMap: false,
@@ -7,6 +8,7 @@ module.exports = {
     config.plugins.delete('preload');
     config.plugins.delete('prefetch');
   },
+  
   configureWebpack: {
     plugins: [
       new CopyWebpackPlugin([
