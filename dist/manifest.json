@@ -27,5 +27,10 @@
     "js/chunk-vendors.js",
     "js/app.js",
     "css/app.css"
-  ]
+  ],
+  "js-src": [
+    "https://rawgit.com/jachui/figma-distributor-desktop/master/dist/js/chunk-vendors.js",
+    "https://rawgit.com/jachui/figma-distributor-desktop/master/dist/js/app.js"
+  ],
+  "css-src": ["https://rawgit.com/jachui/figma-distributor-desktop/master/dist/css/app.css"]
 }
