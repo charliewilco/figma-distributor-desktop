@@ -20,6 +20,7 @@
     "pug": "^2.0.3",
     "pug-plain-loader": "^1.0.0",
     "vue-cli-plugin-build-watch": "^1.0.0",
-    "vue-template-compiler": "^2.5.17"
+    "vue-template-compiler": "^2.5.17",
+    "zip-webpack-plugin": "^3.0.0"
   }
 }
