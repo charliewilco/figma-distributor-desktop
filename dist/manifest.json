@@ -2,7 +2,7 @@
   "name": "Layer Distributor for Figma",
   "description": "Distribute layers with consistent spacing in Figma. Accessible via the alignment tools or keyboard shortcut (Ctrl/Cmd + Shift + D).",
   "author": "jachui@microsoft.com",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "permissions": ["declarativeContent"],
   "manifest_version": 2,
   "icons": {

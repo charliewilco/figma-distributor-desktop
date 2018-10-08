@@ -29,9 +29,6 @@ export default {
     smallNudgeAmount: 1,
     bigNudgeAmount: 10
   }),
-  mounted () {
-    console.log('mounted')
-  },
   computed: {
     disabled: function () {
       if (!isNaN(parseInt(this.spacing)) || this.spacing === '') return this.singleSelect
