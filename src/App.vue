@@ -18,8 +18,6 @@
 </template>
 
 <script>
-/* eslint-disable */
-
 export default {
   data: () => ({
     modalOpened: false,
@@ -35,11 +33,15 @@ export default {
       else return true
     }
   },
+  mounted () {
+    this.$refs.modal.shift.left = window.innerWidth - 230 - 230
+    this.$refs.modal.shift.top = 80
+  },
   methods: {
     openModal () {
-      this.modalOpened = true
       this.$refs.modal.shift.left = window.innerWidth - 230 - 230
       this.$refs.modal.shift.top = 80
+      this.modalOpened = true
       this.$refs.spacingInput.focus()
       this.smallNudgeAmount = App._state.mirror.appModel.smallNudgeAmount
       this.bigNudgeAmount = App._state.mirror.appModel.bigNudgeAmount
@@ -60,14 +62,15 @@ export default {
     distribute () {
       var spacing = this.spacing === '' ? '' : eval(this.spacing)
       var direction = this.direction
+      var selectedNodes = Object.keys(App._state.mirror.sceneGraphSelection)
+      var boundsObj
       if (spacing === '') {
         direction === 'horizontal' ? App.triggerAction('distribute-horizontal-spacing') : App.triggerAction('distribute-vertical-spacing')
       } else {
         spacing = parseInt(spacing)
         if (direction === 'horizontal') {
           App.triggerAction('pack-horizontal')
-          var selectedNodes = Object.keys(App._state.mirror.sceneGraphSelection)
-          var boundsObj = App.sendMessage('getBoundsForNodes', {nodeIds: selectedNodes}).args
+          boundsObj = App.sendMessage('getBoundsForNodes', {nodeIds: selectedNodes}).args
           var boundsX = Object.keys(boundsObj).map(key => { return boundsObj[key].x })
           var rightLayer = selectedNodes[boundsX.indexOf(Math.max(...boundsX))]
           App.sendMessage('clearSelection')
@@ -81,8 +84,7 @@ export default {
           }, 20)
         } else {
           App.triggerAction('pack-vertical')
-          var selectedNodes = Object.keys(App._state.mirror.sceneGraphSelection)
-          var boundsObj = App.sendMessage('getBoundsForNodes', {nodeIds: selectedNodes}).args
+          boundsObj = App.sendMessage('getBoundsForNodes', {nodeIds: selectedNodes}).args
           var boundsY = Object.keys(boundsObj).map(key => { return boundsObj[key].y })
           var bottomLayer = selectedNodes[boundsY.indexOf(Math.max(...boundsY))]
           App.sendMessage('clearSelection')

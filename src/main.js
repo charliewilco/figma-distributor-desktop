@@ -10,35 +10,43 @@ var reactPage = document.getElementById('react-page')
 var app = document.createElement('div')
 app.id = 'distributorApp'
 reactPage.parentNode.insertBefore(app, reactPage.nextSibling)
-window.vue = new Vue({ // eslint-disable-line no-new
+var distributorVue = window.distributorVue
+distributorVue = new Vue({ // eslint-disable-line no-new
   el: '#distributorApp',
   render: h => h(App)
 })
 
-var jsInitChecktimer = setInterval(checkForJSFinish, 111)
+var alignIconChecker = setInterval(checkForAlignIcon, 100)
 
-function checkForJSFinish () {
-  if (document.querySelector('[data-tooltip="align-bottom"]') !== null && jsInitChecktimer !== false) {
-    clearInterval(jsInitChecktimer)
-    jsInitChecktimer = false
+function checkForAlignIcon () {
+  if (document.querySelector('[data-tooltip="align-bottom"]') !== null && alignIconChecker !== false) {
+    clearInterval(alignIconChecker)
+    alignIconChecker = false
     inject()
     document.querySelector('#distributorButton').disabled = document.querySelector('[data-tooltip="distribute-horizontal-spacing"]').className.includes('iconButtonDisabled')
-    mutationObserver2.observe(document.querySelector('[data-tooltip="distribute-horizontal-spacing"]'), {
-      attributes: true,
-      characterData: false,
-      childList: false,
-      subtree: false,
-      attributeOldValue: false,
-      characterDataOldValue: false
+    alignButtonsObserver.observe(document.querySelector('[data-tooltip="distribute-horizontal-spacing"]'), {
+      attributes: true
     })
+    pageObserver.observe(document.querySelector('div[class*="content-13"]'), {childList: true})
   }
 }
 
-var mutationObserver2 = new MutationObserver(function (mutations) {
+var alignButtonsObserver = new MutationObserver(function (mutations) {
   mutations.forEach(function (mutation) {
-    if (mutation.target.className.includes('iconButtonDisabled') && window.vue.$children[0].modalOpened) window.vue.$children[0].singleSelect = true
-    else window.vue.$children[0].singleSelect = false
+    if (mutation.target.className.includes('iconButtonDisabled') && distributorVue.$children[0].modalOpened) distributorVue.$children[0].singleSelect = true
+    else distributorVue.$children[0].singleSelect = false
     document.querySelector('#distributorButton').disabled = mutation.target.className.includes('iconButtonDisabled')
+  })
+})
+
+var pageObserver = new MutationObserver(function (mutations) {
+  mutations.forEach(function (mutation) {
+	if (mutation.addedNodes.length === 1) {
+		if (mutation.addedNodes[0].childNodes.length > 0) {
+			if (document.querySelector('div[class*="fullscreen_view--page"]') !== null) alignIconChecker = setInterval(checkForAlignIcon, 100)
+			else alignButtonsObserver.disconnect()
+        }
+    }
   })
 })
 
@@ -51,14 +59,13 @@ function inject () {
   distributorButton.innerText = 'Ɨ'
   distributorButton.style.fontFamily = 'FigmaIcons'
   alignButton.parentNode.insertBefore(distributorButton, alignButton.nextSibling)
-  var vueInstance = window.vue.$children[0]
   distributorButton.addEventListener('click', function() {
-    if (!document.querySelector('[data-tooltip="distribute-horizontal-spacing"]').className.includes('iconButtonDisabled')) vueInstance.toggleModal()
+    if (!document.querySelector('[data-tooltip="distribute-horizontal-spacing"]').className.includes('iconButtonDisabled')) distributorVue.$children[0].toggleModal()
   }, false)
   document.querySelector('.focus-target').onkeydown = function (e) {
     if (e.metaKey && e.shiftKey && e.keyCode === 68) {
       e.preventDefault()
-      if (!document.querySelector('[data-tooltip="distribute-horizontal-spacing"]').className.includes('iconButtonDisabled')) vueInstance.toggleModal()
+      if (!document.querySelector('[data-tooltip="distribute-horizontal-spacing"]').className.includes('iconButtonDisabled')) distributorVue.$children[0].toggleModal()
     }
   }
 }
