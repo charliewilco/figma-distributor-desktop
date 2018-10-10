@@ -16,10 +16,24 @@
     "@vue/cli-plugin-eslint": "^3.0.4",
     "@vue/cli-service": "^3.0.4",
     "copy-webpack-plugin": "^4.5.2",
+    "husky": "^1.1.1",
+    "lint-staged": "^7.3.0",
+    "prettier": "^1.14.3",
     "pug": "^2.0.3",
     "pug-plain-loader": "^1.0.0",
     "vue-template-compiler": "^2.5.17",
     "webpack-cli": "^3.1.2",
     "zip-webpack-plugin": "^3.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,json,css,md,vue}": [
+      "prettier --write",
+      "git add"
+    ]
   }
 }
